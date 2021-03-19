@@ -2,6 +2,7 @@ import subprocess
 
 # Write alda file
 def writeFile():
+    notes = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
     f = open("song.txt", "w+")
     f.write("piano: a b c d e f")
     f.close()
