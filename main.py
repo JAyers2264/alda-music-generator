@@ -1,11 +1,24 @@
 import subprocess
+from random import randint
+subprocess.call('alda up')
 
 # Write alda file
 def writeFile():
-    notes = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
     f = open("song.txt", "w+")
-    f.write("piano: a b c d e f")
+    f.write(createMelody())
     f.close()
+
+# Write melody
+def createMelody():
+    notes = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+    melody = "piano: "
+    
+    # Create 4 measures of 8 notes
+    for x in range(4):
+        for y in range(8):
+            melody += notes[randint(0,len(notes)-1)] + " "
+        melody += "\n"
+    return melody
 
 # Play alda file
 def playFile():
