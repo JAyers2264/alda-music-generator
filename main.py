@@ -19,11 +19,29 @@ def createMelody():
     # Set instrument to piano, set octave
     melody = "piano: o" + str(octave) + " "
     
-    # Create 4 measures of 8 notes
+    # Create 4 measures
     for x in range(4):
-        for y in range(8):
+
+        # Set measure length to 16 sixteenth notes
+        measure_length = 16
+        note_lengths = [16, 8, 4, 2, 1]
+
+        print("\nStarting a measure")
+        while measure_length > 0:
+
+            # Only use notes that still fit within the remaining measure capacity
+            current_note_lengths = []
+            for length in note_lengths:
+                if 16/length <= measure_length:
+                    current_note_lengths.append(length)
+
             print_octave = False
             step = 3
+
+            # Pick a note length that fits
+            note_length = current_note_lengths[randint(0, len(current_note_lengths)-1)]
+            measure_length -= 16/note_length
+            print("Note length: " + str(note_length) + "\nMeasure length: " + str(measure_length))
 
             # Add or subtract 3 from note
             note += randint(-step,step)
@@ -44,8 +62,8 @@ def createMelody():
             if print_octave:
                 melody += "o" + str(octave) + " "
 
-            melody += notes[note] + " "
-        melody += "\n"
+            melody += notes[note] + str(note_length) + " "
+        melody += "| "
 
     return melody
 
@@ -59,5 +77,5 @@ def exportFile():
 
 # Write and play file
 writeFile()
-#playFile()
+playFile()
 exportFile()
