@@ -8,9 +8,53 @@ def writeFile():
     f.write(createMelody())
     f.close()
 
+# Get the composition key
+def determineKey():
+    full_notes = ['c', 'c+', 'd', 'd+', 'e', 'f', 'f+', 'g', 'g+', 'a', 'a+', 'b']
+    major_scale = [2, 2, 1, 2, 2, 2, 1]
+    minor_scale = [2, 1, 2, 2, 1, 2, 2]
+    scale = []
+    scale_text = ""
+    front_notes = []
+    back_notes = []
+
+    key_note = randint(0, len(full_notes)-1)
+    scale_int = randint(0, 1)
+
+    if scale_int == 0:
+        scale = major_scale
+        scale_text = "major"
+    else:
+        scale = minor_scale
+        scale_text = "minor"
+
+    print("Key: " + full_notes[key_note] + " " + scale_text)
+
+    # Add first note to key
+    looped = False
+
+    # Add notes to scale pieces
+    for x in range(len(scale)):
+        key_note += scale[x]
+        if key_note > (len(full_notes)-1):
+            key_note -= len(full_notes)
+            looped = True
+
+        if looped:
+            front_notes.append(full_notes[key_note])
+        else:
+            back_notes.append(full_notes[key_note])
+
+    # Combine scale pieces into one note scale
+    notes = front_notes + back_notes
+    
+    print(notes)
+
+    return notes
+
 # Write melody
 def createMelody():
-    notes = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
+    notes = determineKey()
 
     # Set starting note
     note = randint(0, len(notes)-1)
@@ -26,7 +70,6 @@ def createMelody():
         measure_length = 16
         note_lengths = [16, 8, 4, 2, 1]
 
-        print("\nStarting a measure")
         while measure_length > 0:
 
             # Only use notes that still fit within the remaining measure capacity
@@ -41,7 +84,6 @@ def createMelody():
             # Pick a note length that fits
             note_length = current_note_lengths[randint(0, len(current_note_lengths)-1)]
             measure_length -= 16/note_length
-            print("Note length: " + str(note_length) + "\nMeasure length: " + str(measure_length))
 
             # Add or subtract 3 from note
             note += randint(-step,step)
