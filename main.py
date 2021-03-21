@@ -18,8 +18,8 @@ def determineKey():
     front_notes = []
     back_notes = []
 
-    #key_note = randint(0, len(full_notes)-1)
-    #scale_int = randint(0, 1)	
+    key_note = randint(0, len(full_notes)-1)
+    scale_int = randint(0, 1)	
 
     if scale_int == 0:
         scale = major_scale
